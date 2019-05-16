@@ -43,7 +43,8 @@ export default {
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/style-resources', //　追記します
   ],
   /*
   ** Axios module configuration
@@ -70,5 +71,10 @@ export default {
         })
       }
     }
-  }
+  },
+  styleResources: {
+    sass: [
+      '~/assets/scss/variable.scss' // 読みませたいscssファイルを指定します。
+    ]
+  },
 }

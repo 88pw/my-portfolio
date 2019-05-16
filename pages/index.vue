@@ -44,6 +44,7 @@ export default {
   text-align: center;
   .title{
     background: $test;
+    color: $test;
   }
 }
 

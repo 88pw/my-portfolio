@@ -1,35 +1,29 @@
 <template>
   <section class="container">
     <div>
-      <logo />
-      <h1 class="title">
-        my-portfolio
-      </h1>
-      <h2 class="subtitle">
-        My unreal Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >GitHub</a>
-      </div>
+      <Posts
+        key="1"
+        title="ito"
+        description="descriptions"
+        categories="1,2"
+        tags="3,4"
+      />
     </div>
   </section>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import Posts from '~/components/Posts.vue'
+import jsonData from '~/assets/json/posts.json'
 
 export default {
   components: {
-    Logo
+    Posts
+  },
+  async asyncData({ app }) {
+    const datas = await app.$axios.$get(jsonData)
+    console.log(await datas)
+    return { datas }
   }
 }
 </script>

@@ -1,4 +1,6 @@
 import pkg from './package'
+require("dotenv").config()
+const client = require("./plugins/contentful")
 
 export default {
   mode: 'spa',
@@ -33,6 +35,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/contentful'
   ],
 
   /*
@@ -43,6 +46,7 @@ export default {
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
+    '@nuxtjs/dotenv',
     '@nuxtjs/pwa',
     '@nuxtjs/style-resources' //　追記します
   ],
@@ -70,11 +74,31 @@ export default {
           exclude: /(node_modules)/
         })
       }
-    }
+    },
   },
   styleResources: {
     sass: [
       '~/assets/scss/variable.scss' // 読みませたいscssファイルを指定します。
     ]
-  }
+  },
+  generate: {
+    routes() {
+      return client
+        .getEntries({ content_type: 'data' })
+        .then(entries => {
+          return entries.items.map(entry => {
+            return {
+              route: "/datas/"+entry.fields.slug,
+              payload: entry
+            }
+          })
+        })
+    }
+  },
+  env: {
+    CTF_SPACE_ID: process.env.CTF_SPACE_ID,
+    CTF_ACCESS_TOKEN: process.env.CTF_ACCESS_TOKEN,
+  },
 }
+
+

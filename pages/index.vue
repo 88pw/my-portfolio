@@ -2,9 +2,10 @@
   <section class="container">
     <div>
       <Posts
-        key="1"
-        title="ito"
-        description="descriptions"
+        v-for="(post,index) in posts"
+        :key="index"
+        :title="post.fields.title"
+        :description="post.fields.figure"
         categories="1,2"
         tags="3,4"
       />
@@ -14,16 +15,24 @@
 
 <script>
 import Posts from '~/components/Posts.vue'
-import jsonData from '~/assets/json/posts.json'
+import contentful from '~/plugins/contentful'
 
 export default {
   components: {
     Posts
   },
-  async asyncData({ app }) {
-    const datas = await app.$axios.$get(jsonData)
-    console.log(await datas)
-    return { datas }
+  asyncData({ params }) {
+    return contentful
+      .getEntries({
+        content_type: 'data',
+        order: '-sys.createdAt'
+      })
+      .then((entries) => {
+        return { posts: entries.items }
+      })
+      .catch((e) => {
+        console.log(e)
+      })
   }
 }
 </script>

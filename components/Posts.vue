@@ -1,8 +1,8 @@
 <template>
   <section class="section-posts">
     <div class="section-posts__inner">
-      <figure v-if="eyecatch" class="section-posts__figure">
-        <img :src="eyecatch" :alt="title">
+      <figure v-if="figure" class="section-posts__figure">
+        <img :src="figure" :alt="title">
       </figure>
       <div class="section-posts__content">
         <h3 class="section-posts__title" v-text="title">
@@ -14,7 +14,7 @@
             <span v-for="(category,index) in categories" :key="index" class="section-posts__category" v-text="category" />
           </div>
           <div v-if="tags && tags.length" class="section-posts__tags">
-            <span v-for="(tag,index) in tags" :key="index" class="section-posts__tag" v-text="tag" />
+            <span v-for="(tag,index) in tags" :key="index" class="section-posts__tag" v-text="tag.fields.title" />
           </div>
         </div>
       </div>
@@ -23,23 +23,29 @@
 </template>
 
 <script>
+
 export default {
   props: {
     title: {
       type: String,
-      require: true
+      require: true,
+      default: ''
     },
     description: {
-      type: String
+      type: String,
+      default: ''
     },
     categories: {
-      type: Array
+      type: [String, Array],
+      default: ''
     },
     tags: {
-      type: Array
+      type: [String, Array],
+      default: ''
     },
-    eyecatch: {
-      type: String
+    figure: {
+      type: String,
+      default: ''
     }
   }
 }

@@ -5,9 +5,9 @@
         v-for="(post,index) in posts"
         :key="index"
         :title="post.fields.title"
-        :description="post.fields.figure"
-        categories="1,2"
-        tags="3,4"
+        :figure="post.fields.figure.fields.file.url"
+        :categories="post.fields.categories.fields.title"
+        :tags="post.fields.tags"
       />
     </div>
   </section>
@@ -28,7 +28,9 @@ export default {
         order: '-sys.createdAt'
       })
       .then((entries) => {
-        return { posts: entries.items }
+        return {
+          posts: entries.items
+        }
       })
       .catch((e) => {
         console.log(e)

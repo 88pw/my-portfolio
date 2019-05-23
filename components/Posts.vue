@@ -51,6 +51,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+  .section-posts{
+    &__description{
+      font-size: 80%;
+      text-align: left;
+    }
+  }
 </style>

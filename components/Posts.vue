@@ -32,7 +32,7 @@ export default {
       default: ''
     },
     description: {
-      type: String,
+      type: [String, Array],
       default: ''
     },
     categories: {

@@ -48,6 +48,7 @@ export default {
     'bootstrap-vue/nuxt',
     '@nuxtjs/dotenv',
     '@nuxtjs/pwa',
+    '@nuxtjs/markdownit',
     '@nuxtjs/style-resources' //　追記します
   ],
   /*
@@ -99,6 +100,21 @@ export default {
     CTF_SPACE_ID: process.env.CTF_SPACE_ID,
     CTF_ACCESS_TOKEN: process.env.CTF_ACCESS_TOKEN,
   },
+  /*
+  ** markdown-it module configuration
+  */
+  markdownit: {
+    preset: 'default',
+    injected: true, 
+    breaks: true, 
+    html: true, 
+    linkify: true,
+    typography: true, 
+    xhtmlOut: true,
+    langPrefix: 'language-',
+    quotes: '“”‘’',
+    highlight: function (/*str, lang*/) { return ''; },
+  }
 }
 
 

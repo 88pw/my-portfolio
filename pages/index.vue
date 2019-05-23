@@ -6,6 +6,7 @@
         :key="index"
         :title="post.fields.title"
         :figure="post.fields.figure.fields.file.url"
+        :description="post.fields.description"
         :categories="post.fields.categories.fields.title"
         :tags="post.fields.tags"
       />

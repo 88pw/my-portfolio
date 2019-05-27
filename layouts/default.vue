@@ -1,10 +1,20 @@
 <template>
   <div>
-    <nuxt />
+    <header class="header">
+      <h1 class="header__h1">
+        Marnie.Web
+      </h1>
+      <div class="header__description">
+        <p>marnie.web</p>
+        <p>It is Portfolio of Masahiro Mitsukuni.</p>
+        <small>2019 © Masahiro Mitsukuni</small>
+      </div>
+    </header>
+    <nuxt class="page" />
   </div>
 </template>
 
-<style>
+<style lang="scss" scoped>
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -24,32 +34,23 @@ html {
   margin: 0;
 }
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+.header{
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  &__h1{
+    font-size: 1000%;
+    line-height: 0;
+    margin-bottom: .5em;
+    color: lighten($color-text, 20%);
+  }
+  &__description{
+    font-size: 80%;
+    padding-left: 1em;
+    color: lighten($color-text, 15%);
+  }
+  small{
+    color: lighten($color-text, 15%);
+  }
 }
 </style>

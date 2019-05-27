@@ -1,6 +1,5 @@
 import pkg from './package'
-require("dotenv").config()
-const client = require("./plugins/contentful")
+const config = require('./.contentful.json')
 
 export default {
   mode: 'spa',
@@ -76,7 +75,7 @@ export default {
           exclude: /(node_modules)/
         })
       }
-    },
+    }
   },
   styleResources: {
     sass: [
@@ -84,38 +83,46 @@ export default {
     ]
   },
   generate: {
-    routes() {
-      return client
-        .getEntries({ content_type: 'data' })
-        .then(entries => {
-          return entries.items.map(entry => {
-            return {
-              route: "/datas/"+entry.fields.slug,
-              payload: entry
-            }
-          })
-        })
+    subFolders: false
+  },
+  router: {
+    base: process.env.BASE_DIR || '/',
+    extendRoutes(routes, resolve) {
+      const aliases = routes.map(route => ({
+        path     : /\/$/.test(route.path) ? `${route.path}index.html` : `${route.path}.html`,
+        alias    : route.path,
+        component: route.component
+      }))
+      routes.push(...aliases)
+    }
+  },
+  hooks: {
+    generate: {
+      async extendRoutes(routes) {
+        const filtered = routes.filter(page => page.route != '/index.html')
+        routes.splice(0, routes.length, ...filtered)
+      }
     }
   },
   env: {
-    CTF_SPACE_ID: process.env.CTF_SPACE_ID,
-    CTF_ACCESS_TOKEN: process.env.CTF_ACCESS_TOKEN,
+    CTF_SPACE_ID: config.CTF_SPACE_ID,
+    CTF_CDA_ACCESS_TOKEN: config.CTF_CDA_ACCESS_TOKEN,
+    CTF_PERSON_ID: config.CTF_PERSON_ID,
+    CTF_BLOG_POST_TYPE_ID: config.CTF_BLOG_POST_TYPE_ID
   },
   /*
   ** markdown-it module configuration
   */
   markdownit: {
     preset: 'default',
-    injected: true, 
-    breaks: true, 
-    html: true, 
+    injected: true,
+    breaks: true,
+    html: true,
     linkify: true,
-    typography: true, 
+    typography: true,
     xhtmlOut: true,
     langPrefix: 'language-',
     quotes: '“”‘’',
-    highlight: function (/*str, lang*/) { return ''; },
+    highlight: function (/* str, lang */) { return '' }
   }
 }
-
-

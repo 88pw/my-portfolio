@@ -1,6 +1,8 @@
 @import 'node_modules/bootstrap/scss/bootstrap';
 
 body{
+	background-color: $color-background;
+	color: $color-text;
 }
 
 .row{
@@ -10,4 +12,18 @@ body{
 
 img{
 	max-width: 100%;
+}
+
+ul{
+	padding-left: 1.5em;
+}
+
+*{
+	transition: all ease .5s;
+}
+
+@media screen and(min-width: 1200px) {
+	.container{
+		max-width: 1380px;
+	}
 }

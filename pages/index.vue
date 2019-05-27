@@ -1,29 +1,62 @@
 <template>
-  <section class="container">
-    <div>
+  <div class="content">
+    <Nav :categories="categories" :tags="tags" />
+    <article>
       <Posts
-        key="1"
-        title="ito"
-        description="descriptions"
-        categories="1,2"
-        tags="3,4"
+        v-for="(post,index) in posts"
+        :key="index"
+        :title="post.fields.title"
+        :figure="post.fields.figure.fields.file.url"
+        :categories="post.fields.categories.fields.title"
+        :tags="post.fields.tags"
+        :description="$md.render(post.fields.body)"
+        :number="index+1"
+        :filteredCategory="category"
+        :filteredTag="tag"
       />
-    </div>
-  </section>
+    </article>
+  </div>
 </template>
 
 <script>
 import Posts from '~/components/Posts.vue'
-import jsonData from '~/assets/json/posts.json'
+import Nav from '~/components/Nav.vue'
+import { createClient } from '~/plugins/contentful.js'
+
+const client = createClient()
 
 export default {
   components: {
-    Posts
+    Posts,
+    Nav
   },
-  async asyncData({ app }) {
-    const datas = await app.$axios.$get(jsonData)
-    console.log(await datas)
-    return { datas }
+  data() {
+    return {
+      category: '',
+      tag: ''
+    }
+  },
+  asyncData({ env }) {
+    return Promise.all([
+      client.getEntries({
+        'content_type': 'data',
+        order: '-sys.createdAt'
+      }),
+      client.getEntries({
+        'content_type': 'category',
+        order: '-sys.createdAt'
+      }),
+      client.getEntries({
+        'content_type': 'tag',
+        order: '-sys.createdAt'
+      })
+    ]).then(([datas, categories, tags]) => {
+      return {
+        posts: datas.items,
+        categories: categories.items,
+        tags: tags.items
+      }
+    }).catch(console.error)
   }
 }
 </script>

@@ -7,34 +7,9 @@
     <div class="nav__wrap" :class="{ 'nav__wrap_on' : nav }">
       <div class="nav__inner">
         <nav class="header-nav">
-          <ul class="header-nav__page">
+          <ul>
+            <li><nuxt-link to="/">Home</nuxt-link></li>
             <li><nuxt-link to="/about">About</nuxt-link></li>
-          </ul>
-          <span class="header-nav__title">Categories</span>
-          <ul class="header-nav__categories">
-            <li @click="postCategory('')">
-              ALL
-            </li>
-            <li
-              v-for="(category,index) in categories"
-              :key="index"
-              @click="postCategory(category.fields.title)"
-              v-text="category.fields.title"
-            />
-          </ul>
-        </nav>
-        <nav class="header-nav">
-          <span class="header-nav__title">Tags</span>
-          <ul class="header-nav__tags">
-            <li @click="postTag('')">
-              ALL
-            </li>
-            <li
-              v-for="(tag,index) in tags"
-              :key="index"
-              @click="postTag(tag.fields.title)"
-              v-text="tag.fields.title"
-            />
           </ul>
         </nav>
       </div>
@@ -44,16 +19,6 @@
 
 <script>
 export default {
-  props: {
-    categories: {
-      type: [String, Object, Array],
-      default: () => ({ count: 0 })
-    },
-    tags: {
-      type: [Object, Array],
-      default: () => ({ count: 0 })
-    }
-  },
   data() {
     return {
       nav: false
@@ -66,14 +31,6 @@ export default {
       } else {
         this.nav = false
       }
-    },
-    postCategory(val) {
-      this.$parent.category = val
-      this.nav = false
-    },
-    postTag(val) {
-      this.$parent.tag = val
-      this.nav = false
     }
   }
 }
@@ -146,42 +103,20 @@ export default {
   }
   .header-nav{
     width: 100%;
-    &__title{
-      font-size: 200%;
-      font-weight: bold;
-    }
     ul{
-
-    }
-    li{
-      background-color: $color-text;
-      color: white;
-      display: inline-block;
-      padding: .2em 1em;
-      margin-right: .5em;
-      margin-bottom: .5em;
-      font-size: 70%;
-      &:last-child{
-        margin-right: 0em;
-      }
-    }
-    &__categories,&__tags{
-      li{
-        cursor: pointer;
-      }
-    }
-    &__page{
+      list-style-type: none;
       margin-left: 0px;
       padding-left: 0px;
-      li{
-        background-color: transparent;
-        padding-left: 0px;
-        font-weight: bold;
-        display: block;
-        font-size: 200%;
-        a{
-          color: $color-text;
-        }
+    }
+    li{
+      padding: .2em 1em;
+      margin-bottom: .5em;
+      font-size: 200%;
+      font-weight: bold;
+      margin-left: 0px;
+      padding-left: 0px;
+      a{
+        color: $color-text;
       }
     }
   }

@@ -6,9 +6,7 @@
       </figure>
       <div class="section-posts__content col-md-3 col-12">
         <span v-if="number" class="section-posts__number" v-text=" number < 10 ? '0'+number : number " />
-        <h3 class="section-posts__title" v-text="title">
-          Title
-        </h3>
+        <h3 class="section-posts__title" v-text="title" />
         <div v-if="description" class="section-posts__description" v-html="description" />
         <div class="section-posts__meta">
           <div v-if="categories && categories.length" class="section-posts__categories">
@@ -18,6 +16,10 @@
           <div v-if="tags && tags.length" class="section-posts__tags">
             <span v-for="(tag,index) in tags" :key="index" class="section-posts__tag" v-text="tag.fields.title" />
           </div>
+        </div>
+        <div class="section-posts__link" v-if="link">
+          <span />
+          <a :href="link" target="_blank" />
         </div>
       </div>
     </div>
@@ -50,6 +52,10 @@ export default {
       default: () => ({ count: 0 })
     },
     figure: {
+      type: String,
+      default: ''
+    },
+    link: {
       type: String,
       default: ''
     },
@@ -111,6 +117,32 @@ export default {
     }
     &__tag{
       background-color: lighten($color-text, 15%);
+    }
+    &__link{
+      margin-top: 2em;
+      a{
+        display: inline-block;
+        width: 80px;
+        position: relative;
+        border-bottom: 1px solid $color-text;
+        height: 1em;
+        &:hover{
+          width: 100px;
+        }
+        &::after{
+          content: '';
+          display: block;
+          height: 1px;
+          width: 10px;
+          background-color: $color-text;
+          transform: rotate(45deg);
+          position: absolute;
+          right: 0px;
+          bottom: 3px;
+        }
+        font-size: 90%;
+        color: $color-text;
+      }
     }
   }
 </style>

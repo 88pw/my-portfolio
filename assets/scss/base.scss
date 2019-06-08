@@ -22,8 +22,18 @@ ul{
 	transition: all ease .5s;
 }
 
-@media screen and(min-width: 1200px) {
-	.container{
+.container {
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+	@media screen and(min-width: 1200px) {
 		max-width: 1380px;
 	}
+}
+
+small{
+	font-size: 80%;
 }

@@ -7,9 +7,6 @@
     <div class="nav__wrap" :class="{ 'nav__wrap_on' : nav }">
       <div class="nav__inner">
         <nav class="header-nav">
-          <ul class="header-nav__page">
-            <li><nuxt-link to="/about">About</nuxt-link></li>
-          </ul>
           <span class="header-nav__title">Categories</span>
           <ul class="header-nav__categories">
             <li @click="postCategory('')">
@@ -35,6 +32,16 @@
               @click="postTag(tag.fields.title)"
               v-text="tag.fields.title"
             />
+          </ul>
+          <ul class="header-nav__page">
+            <li><nuxt-link to="/about">About</nuxt-link></li>
+            <li>
+              Contact
+              <p>
+                mail: wbcre8@gmail.com<br>
+                chatwork: mitsukuni_masahiro
+              </p>
+            </li>
           </ul>
         </nav>
       </div>
@@ -179,8 +186,13 @@ export default {
         font-weight: bold;
         display: block;
         font-size: 200%;
+        color: $color-text;
         a{
           color: $color-text;
+        }
+        p{
+          font-size: 50%;
+          font-weight: normal;
         }
       }
     }

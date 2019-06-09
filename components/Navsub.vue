@@ -10,6 +10,13 @@
           <ul>
             <li><nuxt-link to="/">Home</nuxt-link></li>
             <li><nuxt-link to="/about">About</nuxt-link></li>
+            <li>
+              Contact
+              <p>
+                mail: wbcre8@gmail.com<br>
+                chatwork: mitsukuni_masahiro
+              </p>
+            </li>
           </ul>
         </nav>
       </div>
@@ -117,6 +124,10 @@ export default {
       padding-left: 0px;
       a{
         color: $color-text;
+      }
+      p{
+        font-size: 50%;
+        font-weight: normal;
       }
     }
   }
